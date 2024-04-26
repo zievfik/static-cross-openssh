@@ -1,0 +1,46 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: ok
+      run: mkdir artifacts
+    - name: ok
+      run: make ARCH=x86-64       PREFIX=/opt/openssh
+    - name: ok
+      run: mv   bin/*             artifacts/openssh-x86-64.tgz
+    - name: ok
+      run: make switch-toolchain
+    - name: ok
+      run: make ARCH=armv7-eabihf PREFIX=/opt/openssh
+    - name: ok
+      run: mv   bin/*             artifacts/openssh-armv7-eabihf.tgz
+    - name: ok
+      run: make dirclean
+    - name: ok
+      run: make ARCH=armv7-eabihf PREFIX=/system/opt/openssh
+    - name: ok
+      run: mv   bin/*             artifacts/openssh-armv7-eabihf-android.tgz
+    - name: ok
+      run: make switch-toolchain
+    - name: ok
+      run: make ARCH=aarch64      PREFIX=/opt/openssh
+    - name: ok
+      run: mv   bin/*             artifacts/openssh-aarch64.tgz
+    - name: ok
+      run: make dirclean
+    - name: ok
+      run: make ARCH=aarch64      PREFIX=/system/opt/openssh
+    - name: ok
+      run: mv   bin/*             artifacts/openssh-aarch64-android.tgz
+
