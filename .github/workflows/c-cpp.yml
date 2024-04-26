@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: configure
+      run: ./configure
     - name: ok
       run: mkdir artifacts
     - name: ok
